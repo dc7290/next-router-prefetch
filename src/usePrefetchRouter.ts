@@ -1,21 +1,35 @@
 import { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 
-import type { MouseEvent } from "react";
+import { UrlObject } from "url";
 
-function usePrefetchRouter<T extends Element>(url: string) {
+declare type Url = UrlObject | string;
+
+type TransitionOptions = {
+  shallow?: boolean;
+  locale?: string | false;
+  scroll?: boolean;
+};
+
+type RouterOptions = {
+  url: Url;
+  as?: string | UrlObject | undefined;
+  options?: TransitionOptions | undefined;
+};
+
+export function usePrefetchRouter<T extends Element>(
+  routerOptions: RouterOptions
+) {
   const router = useRouter();
 
-  const handleRouterPush = (
-    event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
-  ) => {
+  const handleRouterPush = (event: Event) => {
     event.preventDefault();
-    router.push("/about");
+    router.push(routerOptions.url, routerOptions.as, routerOptions.options);
   };
 
   const prefetchTarget = useRef<T | null>(null);
   const prefetch = () => {
-    router.prefetch(url);
+    router.prefetch();
   };
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -35,5 +49,3 @@ function usePrefetchRouter<T extends Element>(url: string) {
     prefetchTarget,
   };
 }
-
-export default usePrefetchRouter;
