@@ -1,9 +1,11 @@
 import { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
+import { prepareUrlAs } from "./lib/prepareUrlAs";
 
-import { UrlObject } from "url";
+import type { ReactEventHandler } from "react";
+import type { UrlObject } from "url";
 
-declare type Url = UrlObject | string;
+export declare type Url = UrlObject | string;
 
 type TransitionOptions = {
   shallow?: boolean;
@@ -11,25 +13,46 @@ type TransitionOptions = {
   scroll?: boolean;
 };
 
-type RouterOptions = {
+export type PrefetchRouterOptions = {
   url: Url;
   as?: string | UrlObject | undefined;
   options?: TransitionOptions | undefined;
 };
 
 export function usePrefetchRouter<T extends Element>(
-  routerOptions: RouterOptions
+  prefetchRouterOptions: PrefetchRouterOptions
 ) {
   const router = useRouter();
 
-  const handleRouterPush = (event: Event) => {
+  const handleRouterPush: ReactEventHandler = (event) => {
     event.preventDefault();
-    router.push(routerOptions.url, routerOptions.as, routerOptions.options);
+    router.push(
+      prefetchRouterOptions.url,
+      prefetchRouterOptions.as,
+      prefetchRouterOptions.options
+    );
   };
 
   const prefetchTarget = useRef<T | null>(null);
+  const prefetchLink = () => {
+    if (typeof prefetchRouterOptions.url === "string") {
+      return {
+        url: prefetchRouterOptions.url,
+      };
+    } else {
+      const { url, as } = prepareUrlAs(
+        router,
+        prefetchRouterOptions.url,
+        prefetchRouterOptions.as
+      );
+      return {
+        url,
+        as,
+      };
+    }
+  };
   const prefetch = () => {
-    router.prefetch();
+    router.prefetch(prefetchLink().url, prefetchLink().as);
   };
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
