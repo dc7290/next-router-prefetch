@@ -1,6 +1,6 @@
 {
   "name": "@dc7290/next-router-prefetch",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "This provides a custom hook that contains 'next/router'.",
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
