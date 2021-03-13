@@ -19,7 +19,7 @@ export type PrefetchRouterOptions = {
   options?: TransitionOptions | undefined;
 };
 
-export function usePrefetchRouter<T extends Element>(
+export function useRouterPrefetch<T extends Element>(
   prefetchRouterOptions: PrefetchRouterOptions
 ) {
   const router = useRouter();

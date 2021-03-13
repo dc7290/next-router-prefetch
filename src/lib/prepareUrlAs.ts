@@ -5,7 +5,7 @@ import {
 import { getLocationOrigin } from "next/dist/next-server/lib/utils";
 
 import type { NextRouter } from "next/router";
-import type { Url } from "../usePrefetchRouter";
+import type { Url } from "../useRouterPrefetch";
 
 function stripOrigin(url: string) {
   const origin = getLocationOrigin();
