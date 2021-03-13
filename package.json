@@ -1,6 +1,6 @@
 {
   "name": "@dc7290/next-router-prefetch",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "This provides a custom hook that contains 'next/router'.",
   "main": "lib/index.js",
   "module": "esm/index.js",

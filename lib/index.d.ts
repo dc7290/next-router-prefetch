@@ -1,1 +1,1 @@
-export { useRouterPrefetch } from "./usePrefetchRouter";
+export { useRouterPrefetch } from "./useRouterPrefetch";
