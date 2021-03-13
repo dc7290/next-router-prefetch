@@ -28,8 +28,6 @@ yarn add @dc7290/next-router-prefetch # npm i @dc7290/next-router-prefetch
 
 # Note
 
-注意点などがあれば書く
-
 # Author
 
 dc7290
