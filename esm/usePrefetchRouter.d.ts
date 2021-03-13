@@ -12,7 +12,7 @@ export declare type PrefetchRouterOptions = {
     as?: string | UrlObject | undefined;
     options?: TransitionOptions | undefined;
 };
-export declare function usePrefetchRouter<T extends Element>(prefetchRouterOptions: PrefetchRouterOptions): {
+export declare function useRouterPrefetch<T extends Element>(prefetchRouterOptions: PrefetchRouterOptions): {
     handleRouterPush: ReactEventHandler<Element>;
     prefetchTarget: import("react").MutableRefObject<T | null>;
 };

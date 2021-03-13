@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import { prepareUrlAs } from "./lib/prepareUrlAs";
-export function usePrefetchRouter(prefetchRouterOptions) {
+export function useRouterPrefetch(prefetchRouterOptions) {
     var router = useRouter();
     var handleRouterPush = function (event) {
         event.preventDefault();
