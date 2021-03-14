@@ -1,14 +1,12 @@
 import { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import { prepareUrlAs } from "./lib/prepareUrlAs";
-export function useRouterPrefetch(url, routerPrefetchOptions) {
-    if (routerPrefetchOptions === void 0) { routerPrefetchOptions = {
-        observe: true,
-    }; }
+export function useRouterPrefetch(url, observe, nextRouterOptions) {
+    if (observe === void 0) { observe = true; }
     var router = useRouter();
     var handleRouterPush = function (event) {
-        event.preventDefault();
-        router.push(url, routerPrefetchOptions.as, routerPrefetchOptions.options);
+        event === null || event === void 0 ? void 0 : event.preventDefault();
+        router.push(url, nextRouterOptions === null || nextRouterOptions === void 0 ? void 0 : nextRouterOptions.as, nextRouterOptions === null || nextRouterOptions === void 0 ? void 0 : nextRouterOptions.options);
     };
     var prefetchTarget = useRef(null);
     var prefetchLink = function () {
@@ -18,7 +16,7 @@ export function useRouterPrefetch(url, routerPrefetchOptions) {
             };
         }
         else {
-            var _a = prepareUrlAs(router, url, routerPrefetchOptions.as), prefetchUrl = _a.url, prefetchAs = _a.as;
+            var _a = prepareUrlAs(router, url, nextRouterOptions === null || nextRouterOptions === void 0 ? void 0 : nextRouterOptions.as), prefetchUrl = _a.url, prefetchAs = _a.as;
             return {
                 prefetchUrl: prefetchUrl,
                 prefetchAs: prefetchAs,
@@ -29,7 +27,7 @@ export function useRouterPrefetch(url, routerPrefetchOptions) {
         router.prefetch(prefetchLink().prefetchUrl, prefetchLink().prefetchAs);
     };
     useEffect(function () {
-        if (routerPrefetchOptions.observe) {
+        if (observe) {
             var observer = new IntersectionObserver(function (entries) {
                 entries.forEach(function (entry) {
                     if (entry.isIntersecting) {
@@ -45,8 +43,15 @@ export function useRouterPrefetch(url, routerPrefetchOptions) {
             prefetch();
         }
     }, []);
-    return {
-        handleRouterPush: handleRouterPush,
-        prefetchTarget: prefetchTarget,
-    };
+    if (observe) {
+        return {
+            handleRouterPush: handleRouterPush,
+            prefetchTarget: prefetchTarget,
+        };
+    }
+    else {
+        return {
+            handleRouterPush: handleRouterPush,
+        };
+    }
 }

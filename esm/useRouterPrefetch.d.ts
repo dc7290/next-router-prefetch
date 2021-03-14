@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import type { ReactEventHandler } from "react";
+import type { MutableRefObject, SyntheticEvent } from "react";
 import type { UrlObject } from "url";
 export declare type Url = UrlObject | string;
 declare type TransitionOptions = {
@@ -7,13 +7,15 @@ declare type TransitionOptions = {
     locale?: string | false;
     scroll?: boolean;
 };
-declare type RouterPrefetchOptions = {
+declare type NextRouterOptions = {
     as?: string | UrlObject;
     options?: TransitionOptions;
-    observe?: boolean;
 };
-export declare function useRouterPrefetch<T extends Element>(url: Url, routerPrefetchOptions?: RouterPrefetchOptions): {
-    handleRouterPush: ReactEventHandler<Element>;
-    prefetchTarget: import("react").MutableRefObject<T | null>;
+export declare function useRouterPrefetch<T extends Element>(url: Url, observe?: true, nextRouterOptions?: NextRouterOptions): {
+    handleRouterPush: (event?: SyntheticEvent<Element, Event> | undefined) => void;
+    prefetchTarget: MutableRefObject<T | null>;
+};
+export declare function useRouterPrefetch(url: Url, observe?: false, nextRouterOptions?: NextRouterOptions): {
+    handleRouterPush: (event?: SyntheticEvent<Element, Event> | undefined) => void;
 };
 export {};

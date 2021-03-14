@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import { prepareUrlAs } from "./lib/prepareUrlAs";
 
-import type { ReactEventHandler } from "react";
+import type { MutableRefObject, SyntheticEvent } from "react";
 import type { UrlObject } from "url";
 
 export type Url = UrlObject | string;
@@ -13,23 +13,42 @@ type TransitionOptions = {
   scroll?: boolean;
 };
 
-type RouterPrefetchOptions = {
+type NextRouterOptions = {
   as?: string | UrlObject;
   options?: TransitionOptions;
-  observe?: boolean;
 };
 
 export function useRouterPrefetch<T extends Element>(
   url: Url,
-  routerPrefetchOptions: RouterPrefetchOptions = {
-    observe: true,
-  }
+  observe?: true,
+  nextRouterOptions?: NextRouterOptions
+): {
+  handleRouterPush: (
+    event?: SyntheticEvent<Element, Event> | undefined
+  ) => void;
+  prefetchTarget: MutableRefObject<T | null>;
+};
+
+export function useRouterPrefetch(
+  url: Url,
+  observe?: false,
+  nextRouterOptions?: NextRouterOptions
+): {
+  handleRouterPush: (
+    event?: SyntheticEvent<Element, Event> | undefined
+  ) => void;
+};
+
+export function useRouterPrefetch<T extends Element>(
+  url: Url,
+  observe: boolean = true,
+  nextRouterOptions?: NextRouterOptions
 ) {
   const router = useRouter();
 
-  const handleRouterPush: ReactEventHandler = (event) => {
-    event.preventDefault();
-    router.push(url, routerPrefetchOptions.as, routerPrefetchOptions.options);
+  const handleRouterPush = (event?: SyntheticEvent<Element, Event>) => {
+    event?.preventDefault();
+    router.push(url, nextRouterOptions?.as, nextRouterOptions?.options);
   };
 
   const prefetchTarget = useRef<T | null>(null);
@@ -42,7 +61,7 @@ export function useRouterPrefetch<T extends Element>(
       const { url: prefetchUrl, as: prefetchAs } = prepareUrlAs(
         router,
         url,
-        routerPrefetchOptions.as
+        nextRouterOptions?.as
       );
       return {
         prefetchUrl,
@@ -54,7 +73,7 @@ export function useRouterPrefetch<T extends Element>(
     router.prefetch(prefetchLink().prefetchUrl, prefetchLink().prefetchAs);
   };
   useEffect(() => {
-    if (routerPrefetchOptions.observe) {
+    if (observe) {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
@@ -70,8 +89,14 @@ export function useRouterPrefetch<T extends Element>(
     }
   }, []);
 
-  return {
-    handleRouterPush,
-    prefetchTarget,
-  };
+  if (observe) {
+    return {
+      handleRouterPush,
+      prefetchTarget,
+    };
+  } else {
+    return {
+      handleRouterPush,
+    };
+  }
 }
