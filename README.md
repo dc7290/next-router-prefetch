@@ -13,8 +13,8 @@ router.push("/about");
 ```
 
 このようにページ遷移しようとすると、遷移するまでにロードの時間がかかります。<br>
-これが`next/link`(Link)コンポーネントでページ遷移する場合、リンクがビューポートに入った時点で自動でリンク先を prefetch するようになっています。<br>（`prefetch={false}`にしていない限り）
-しかし、`router.push`を使った場合は自動 prefetch がされないため、すぐにページ遷移されないのです。<br>
+これが`next/link`(Link)コンポーネントでページ遷移する場合、リンクがビューポートに入った時点で自動でリンク先を prefetch するようになっています。<br>（`prefetch={false}`にしていない限り）<br>
+しかし、`router.push`を使った場合は自動 prefetch がされないため、すぐにページ遷移されないのです。<br><br>
 これを解消するのが`next-router-prefetch`です！
 
 ## Installation
@@ -29,13 +29,13 @@ yarn add @dc7290/next-router-prefetch # npm i @dc7290/next-router-prefetch
 useRouter(url, observe, nextRouterOptions);
 ```
 
-第 1 引数にリンク先を入力して使用します。
-このリンク先は `router.push` で使われているものと同じものが使用できるので、文字列だけでなく `UrlObject` でも構いません。
-`router.prefetch` にも適用できるように内部で受け取った `UrlObject` を文字列に変換しているので、prefetch 用に文字列を渡す必要はありません。<br>
-`useRouterPrefetch()`を実行すると`handleRouterPush`、(observe が`true`の場合)`prefetchTarget`が返ってきます。<br>
-`handleRouterPush`はその名の通り、渡したリンク先に遷移する関数です。
-トリガーにしたいイベント、または useEffect 等の中で使います。<br>
-`prefetchTarget`は`IntersectionObserver`で observe するようにされている ref オブジェクトです。
+第 1 引数にリンク先を入力して使用します。<br>
+このリンク先は `router.push` で使われているものと同じものが使用できるので、文字列だけでなく `UrlObject` でも構いません。<br>
+`router.prefetch` にも適用できるように内部で受け取った `UrlObject` を文字列に変換しているので、prefetch 用に文字列を渡す必要はありません。<br><br>
+`useRouterPrefetch()`を実行すると`handleRouterPush`、(observe が`true`の場合)`prefetchTarget`が返ってきます。<br><br>
+`handleRouterPush`はその名の通り、渡したリンク先に遷移する関数です。<br>
+トリガーにしたいイベント、または useEffect 等の中で使います。<br><br>
+`prefetchTarget`は`IntersectionObserver`で observe するようにされている ref オブジェクトです。<br>
 これをビューポートに入ったら prefetch して欲しい要素の ref に設定します。
 
 #### JavaScript での使用例
@@ -86,7 +86,7 @@ const FooComponent: React.VFC = () => {
     prefetchTarget,
   } = useRouterPrefetch<HTMLDivElement>("/foo");
   // 以下のような渡し方も可能
-  // const { handleRouterPush, prefetchTarget } = useRouterPrefetch({
+  // const { handleRouterPush, prefetchTarget } = useRouterPrefetch<HTMLDivElement>({
   //   pathname: "/posts/[postId]";
   //   query: {
   //       postId: 1;
@@ -114,7 +114,7 @@ const BarComponent: React.VFC = () => {
 };
 ```
 
-## options
+## Options
 
 #### url
 
@@ -136,6 +136,27 @@ router.push のデフォルトの optins と同様です。
 | ------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | as      | string or UrlObject | ブラウザに表示される URL のオプションのデコレーターです。Next.js 9.5.3 より前のバージョンでは、このデコレーターはダイナミックルートに使用されていましたが、その仕組みについては[以前のドキュメント](https://nextjs.org/docs/tag/v9.5.2/api-reference/next/link#dynamic-routes)をご覧ください。                                                                                                                                                                                                    |
 | options | object              | 以下の設定オプションを持つオプションオブジェクトです。<br>scroll: ナビゲーション後にページの先頭にスクロールするかどうか。デフォルトは true です。<br>shallow: getStaticProps、getServerSideProps、getInitialProps を再実行することなく、現在のページのパスを更新します。デフォルトは false です。<br>locale: アクティブなロケールは自動的に前置されます。 locale は異なるロケールを指定することができます。false の場合、href はロケールを含めなければならず、デフォルトの動作は無効になります。 |
+
+## Tips
+
+便利な使い方を紹介します。
+
+#### pathpida との連携
+
+```typescript
+import { pagesPath } from "~/utils/$path";
+
+// ~~~~ 省略
+
+const { handleRouterPush, prefetchTarget } = useRouterPrefetch<HTMLElement>(
+  pagesPath.posts._postId(props.url).$url()
+);
+
+// ~~~~ 省略
+```
+
+リンクを型安全にしてくれるライブラリである pathpida との連携もこのように可能です。
+しかも prefetch のために`pagesPath.posts._postId(props.url).$url().pathname`と文字列にして渡す必要もないので、pathpida をさらに便利に使えるでしょう！
 
 ## Author
 
