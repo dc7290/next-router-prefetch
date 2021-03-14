@@ -5,7 +5,7 @@ import { prepareUrlAs } from "./lib/prepareUrlAs";
 import type { ReactEventHandler } from "react";
 import type { UrlObject } from "url";
 
-export declare type Url = UrlObject | string;
+export type Url = UrlObject | string;
 
 type TransitionOptions = {
   shallow?: boolean;
@@ -13,57 +13,60 @@ type TransitionOptions = {
   scroll?: boolean;
 };
 
-export type PrefetchRouterOptions = {
-  url: Url;
-  as?: string | UrlObject | undefined;
-  options?: TransitionOptions | undefined;
+type RouterPrefetchOptions = {
+  as?: string | UrlObject;
+  options?: TransitionOptions;
+  observe?: boolean;
 };
 
 export function useRouterPrefetch<T extends Element>(
-  prefetchRouterOptions: PrefetchRouterOptions
+  url: Url,
+  routerPrefetchOptions: RouterPrefetchOptions = {
+    observe: true,
+  }
 ) {
   const router = useRouter();
 
   const handleRouterPush: ReactEventHandler = (event) => {
     event.preventDefault();
-    router.push(
-      prefetchRouterOptions.url,
-      prefetchRouterOptions.as,
-      prefetchRouterOptions.options
-    );
+    router.push(url, routerPrefetchOptions.as, routerPrefetchOptions.options);
   };
 
   const prefetchTarget = useRef<T | null>(null);
   const prefetchLink = () => {
-    if (typeof prefetchRouterOptions.url === "string") {
+    if (typeof url === "string") {
       return {
-        url: prefetchRouterOptions.url,
+        prefetchUrl: url,
       };
     } else {
-      const { url, as } = prepareUrlAs(
+      const { url: prefetchUrl, as: prefetchAs } = prepareUrlAs(
         router,
-        prefetchRouterOptions.url,
-        prefetchRouterOptions.as
+        url,
+        routerPrefetchOptions.as
       );
       return {
-        url,
-        as,
+        prefetchUrl,
+        prefetchAs,
       };
     }
   };
   const prefetch = () => {
-    router.prefetch(prefetchLink().url, prefetchLink().as);
+    router.prefetch(prefetchLink().prefetchUrl, prefetchLink().prefetchAs);
   };
   useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          prefetch();
-        }
+    if (routerPrefetchOptions.observe) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            prefetch();
+          }
+        });
       });
-    });
-    if (prefetchTarget.current) {
-      observer.observe(prefetchTarget.current);
+      if (prefetchTarget.current) {
+        observer.observe(prefetchTarget.current);
+      }
+    } else {
+      prefetch();
     }
   }, []);
 

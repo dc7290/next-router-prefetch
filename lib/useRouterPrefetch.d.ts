@@ -7,12 +7,12 @@ declare type TransitionOptions = {
     locale?: string | false;
     scroll?: boolean;
 };
-export declare type PrefetchRouterOptions = {
-    url: Url;
-    as?: string | UrlObject | undefined;
-    options?: TransitionOptions | undefined;
+declare type RouterPrefetchOptions = {
+    as?: string | UrlObject;
+    options?: TransitionOptions;
+    observe?: boolean;
 };
-export declare function useRouterPrefetch<T extends Element>(prefetchRouterOptions: PrefetchRouterOptions): {
+export declare function useRouterPrefetch<T extends Element>(url: Url, routerPrefetchOptions?: RouterPrefetchOptions): {
     handleRouterPush: ReactEventHandler<Element>;
     prefetchTarget: import("react").MutableRefObject<T | null>;
 };
