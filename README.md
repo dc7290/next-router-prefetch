@@ -40,7 +40,7 @@ Use this in the event you want to trigger, or in useEffect, etc.<br><br>
 `prefetchTarget` is a ref object that is supposed to be observed by `IntersectionObserver`.<br>
 Set this to the ref of the element you want prefetched when it enters the viewport.
 
-#### JavaScript での使用例
+#### Example of use in JavaScript
 
 ```js
 import { useEffect } from "react";
@@ -77,7 +77,7 @@ const BarComponent = () => {
 };
 ```
 
-#### TypeScript での使用例
+#### Example of use in TypeScript
 
 ```js
 import { useRouterPrefetch } from "@dc7290/next-router-prefetch";
@@ -132,10 +132,10 @@ const BarComponent: React.VFC = () => {
 
 This is the same as the default optins for router.push.
 
-| key     | value               | description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| ------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| as      | string or UrlObject | ブラウザに表示される URL のオプションのデコレーターです。Next.js 9.5.3 より前のバージョンでは、このデコレーターはダイナミックルートに使用されていましたが、その仕組みについては[以前のドキュメント](https://nextjs.org/docs/tag/v9.5.2/api-reference/next/link#dynamic-routes)をご覧ください。                                                                                                                                                                                                    |
-| options | object              | 以下の設定オプションを持つオプションオブジェクトです。<br>scroll: ナビゲーション後にページの先頭にスクロールするかどうか。デフォルトは true です。<br>shallow: getStaticProps、getServerSideProps、getInitialProps を再実行することなく、現在のページのパスを更新します。デフォルトは false です。<br>locale: アクティブなロケールは自動的に前置されます。 locale は異なるロケールを指定することができます。false の場合、href はロケールを含めなければならず、デフォルトの動作は無効になります。 |
+| key     | value               | description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| ------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| as      | string or UrlObject | Optional decorator for the path that will be shown in the browser URL bar.<br>Before Next.js 9.5.3 this was used for dynamic routes, check our [previous docs](https://nextjs.org/docs/tag/v9.5.2/api-reference/next/link#dynamic-routes) to see how it worked.                                                                                                                                                                                                                            |
+| options | object              | Optional object with the following configuration options:<br>scroll: Scroll to the top of the page after a navigation. Defaults to `true`<br>shallow: Update the path of the current page without rerunning `getStaticProps`, `getServerSideProps` or `getInitialProps`. Defaults to `false`<br>locale: The active `locale` is automatically prepended. locale allows for providing a different locale. When `false` `href` has to include the locale as the default behavior is disabled. |
 
 ## Tips
 
@@ -146,13 +146,13 @@ Here are some useful ways to use it.
 ```typescript
 import { pagesPath } from "~/utils/$path";
 
-// ~~~~ 省略
+// ~~~~ abbreviation
 
 const { handleRouterPush, prefetchTarget } = useRouterPrefetch<HTMLElement>(
   pagesPath.posts._postId(props.url).$url()
 );
 
-// ~~~~ 省略
+// ~~~~ abbreviation
 ```
 
 It is also possible to work with [pathpida](https://github.com/aspida/pathpida), a library that makes links type-safe, in this way.
