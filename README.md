@@ -3,7 +3,7 @@
 `next-router-prefetch` is a custom hook that wraps useRouter.<br>
 Apply prefetch to links that do not use the Link component.
 
-[日本語]()
+[日本語](https://github.com/dc7290/next-router-prefetch/blob/main/docs/README-ja.md)
 
 ## Features
 
