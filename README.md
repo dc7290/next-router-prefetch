@@ -27,7 +27,7 @@ yarn add @dc7290/next-router-prefetch # npm i @dc7290/next-router-prefetch
 
 ## Usage
 
-```javascript
+```js
 useRouter(url, observe, nextRouterOptions);
 ```
 
@@ -66,7 +66,7 @@ const FooComponent = () => {
 
 // Use with observe = false
 const BarComponent = () => {
-  const { handleRouterPush } = useRouterPrefetch("bar/", false);
+  const { handleRouterPush } = useRouterPrefetch("/bar", false);
   useEffect(() => {
     if (login) {
       handleRouterPush();
@@ -103,7 +103,7 @@ const FooComponent: React.VFC = () => {
 
 // Use with observe = false
 const BarComponent: React.VFC = () => {
-  const { handleRouterPush } = useRouterPrefetch("bar/", false);
+  const { handleRouterPush } = useRouterPrefetch("/bar", false);
   useEffect(() => {
     if (login) {
       handleRouterPush();

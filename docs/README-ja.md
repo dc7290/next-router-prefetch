@@ -64,7 +64,7 @@ const FooComponent = () => {
 
 // observe = falseで使う
 const BarComponent = () => {
-  const { handleRouterPush } = useRouterPrefetch("bar/", false);
+  const { handleRouterPush } = useRouterPrefetch("/bar", false);
   useEffect(() => {
     if (login) {
       handleRouterPush();
@@ -103,7 +103,7 @@ const FooComponent: React.VFC = () => {
 
 // observe = falseで使う
 const BarComponent: React.VFC = () => {
-  const { handleRouterPush } = useRouterPrefetch("bar/", false);
+  const { handleRouterPush } = useRouterPrefetch("/bar", false);
   useEffect(() => {
     if (login) {
       handleRouterPush();
