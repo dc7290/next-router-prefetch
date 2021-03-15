@@ -1,23 +1,21 @@
 # next-router-prefetch
 
-`next-router-prefetch` is a custom hook that wraps useRouter.<br>
-Apply prefetch to links that do not use the Link component.
-
-[日本語]()
+`next-router-prefetch`は useRouter をラップしたカスタムフックです。<br>
+Link コンポーネントを使わないリンクにも prefetch を適用します。
 
 ## Features
 
-Usually,
+通常、
 
 ```typescript
 const router = useRouter();
 router.push("/about");
 ```
 
-If you try to transition pages in this way, it will take some time to load before you can transition.<br>
-If this is a page transition with the `next/link`(Link) component, it will automatically prefetch the link destination when the link enters the viewport.<br>（Unless you have set `prefetch={false}`.）<br>
-However, if you use `router.push`, the page will not be moved immediately because automatic prefetch is not performed.<br><br>
-The solution to this is `next-router-prefetch`!
+このようにページ遷移しようとすると、遷移するまでにロードの時間がかかります。<br>
+これが`next/link`(Link)コンポーネントでページ遷移する場合、リンクがビューポートに入った時点で自動でリンク先を prefetch するようになっています。<br>（`prefetch={false}`にしていない限り）<br>
+しかし、`router.push`を使った場合は自動 prefetch がされないため、すぐにページ遷移されないのです。<br><br>
+これを解消するのが`next-router-prefetch`です！
 
 ## Installation
 
@@ -31,24 +29,24 @@ yarn add @dc7290/next-router-prefetch # npm i @dc7290/next-router-prefetch
 useRouter(url, observe, nextRouterOptions);
 ```
 
-Use the first argument to enter the link destination.<br>
-This link can be the same as the one used in `router.push`, so it can be a `UrlObject` as well as a string.<br>
-The `UrlObject` received internally is converted to a string so that it can be applied to `router.prefetch`, so there is no need to pass a string for prefetch.<br><br>
-Running `useRouterPrefetch()` will return `handleRouterPush` and (if observe is `true`) `prefetchTarget`.<br><br>
-`handleRouterPush`, as the name suggests, is a function that transitions to the passed link destination.<br>
-Use this in the event you want to trigger, or in useEffect, etc.<br><br>
-`prefetchTarget` is a ref object that is supposed to be observed by `IntersectionObserver`.<br>
-Set this to the ref of the element you want prefetched when it enters the viewport.
+第 1 引数にリンク先を入力して使用します。<br>
+このリンク先は `router.push` で使われているものと同じものが使用できるので、文字列だけでなく `UrlObject` でも構いません。<br>
+`router.prefetch` にも適用できるように内部で受け取った `UrlObject` を文字列に変換しているので、prefetch 用に文字列を渡す必要はありません。<br><br>
+`useRouterPrefetch()`を実行すると`handleRouterPush`、(observe が`true`の場合)`prefetchTarget`が返ってきます。<br><br>
+`handleRouterPush`はその名の通り、渡したリンク先に遷移する関数です。<br>
+トリガーにしたいイベント、または useEffect 等の中で使います。<br><br>
+`prefetchTarget`は`IntersectionObserver`で observe するようにされている ref オブジェクトです。<br>
+これをビューポートに入ったら prefetch して欲しい要素の ref に設定します。
 
 #### JavaScript での使用例
 
-```js
+```javascript
 import { useEffect } from "react";
 import { useRouterPrefetch } from "@dc7290/next-router-prefetch";
 
 const FooComponent = () => {
   const { handleRouterPush, prefetchTarget } = useRouterPrefetch("/foo");
-  // You can also give it to them in the following ways
+  // 以下のような渡し方も可能
   // const { handleRouterPush, prefetchTarget } = useRouterPrefetch({
   //   pathname: "/posts/[postId]";
   //   query: {
@@ -64,7 +62,7 @@ const FooComponent = () => {
   );
 };
 
-// Use with observe = false
+// observe = falseで使う
 const BarComponent = () => {
   const { handleRouterPush } = useRouterPrefetch("bar/", false);
   useEffect(() => {
@@ -79,13 +77,15 @@ const BarComponent = () => {
 
 #### TypeScript での使用例
 
-```js
+```typescript
 import { useRouterPrefetch } from "@dc7290/next-router-prefetch";
 
 const FooComponent: React.VFC = () => {
-  const { handleRouterPush, prefetchTarget } =
-    useRouterPrefetch < HTMLDivElement > "/foo";
-  // You can also give it to them in the following ways
+  const {
+    handleRouterPush,
+    prefetchTarget,
+  } = useRouterPrefetch<HTMLDivElement>("/foo");
+  // 以下のような渡し方も可能
   // const { handleRouterPush, prefetchTarget } = useRouterPrefetch<HTMLDivElement>({
   //   pathname: "/posts/[postId]";
   //   query: {
@@ -101,7 +101,7 @@ const FooComponent: React.VFC = () => {
   );
 };
 
-// Use with observe = false
+// observe = falseで使う
 const BarComponent: React.VFC = () => {
   const { handleRouterPush } = useRouterPrefetch("bar/", false);
   useEffect(() => {
@@ -118,19 +118,19 @@ const BarComponent: React.VFC = () => {
 
 #### url
 
-| value               | description                                                                                         |
-| ------------------- | --------------------------------------------------------------------------------------------------- |
-| string or UrlObject | Specifies the transition destination.<br>It takes on the same type as when passed to router.push(). |
+| value               | description                                                           |
+| ------------------- | --------------------------------------------------------------------- |
+| string or UrlObject | 遷移先を指定します。<br>router.push()に渡す時と同じ型を引き受けます。 |
 
 #### observe
 
-| value   | description                                                                                                                                                  |
-| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| boolean | Use `IntersectionObserver` to decide whether to prefetch or not.<br>The default is true, and if set to `false` it will prefetch immediately after rendering. |
+| value   | description                                                                                                                                                    |
+| ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| boolean | `IntersectionObserver` を用いて prefetch するかどうかを決めます。<br>デフォルトは true になっており、`false`にするとレンダリングの後、すぐに prefetch します。 |
 
 #### nextRouterOptions
 
-This is the same as the default optins for router.push.
+router.push のデフォルトの optins と同様です。
 
 | key     | value               | description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | ------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -139,9 +139,9 @@ This is the same as the default optins for router.push.
 
 ## Tips
 
-Here are some useful ways to use it.
+便利な使い方を紹介します。
 
-#### Linking with pathpida
+#### pathpida との連携
 
 ```typescript
 import { pagesPath } from "~/utils/$path";
@@ -155,8 +155,8 @@ const { handleRouterPush, prefetchTarget } = useRouterPrefetch<HTMLElement>(
 // ~~~~ 省略
 ```
 
-It is also possible to work with [pathpida](https://github.com/aspida/pathpida), a library that makes links type-safe, in this way.
-And you don't need to pass `pagesPath.posts._postId(props.url)`. You don't even need to pass `$url().pathname` as a string to make pathpida even more useful!
+リンクを型安全にしてくれるライブラリである [pathpida](https://github.com/aspida/pathpida) との連携もこのように可能です。
+しかも prefetch のために`pagesPath.posts._postId(props.url).$url().pathname`と文字列にして渡す必要もないので、pathpida をさらに便利に使えるでしょう！
 
 ## Author
 
