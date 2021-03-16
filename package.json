@@ -1,6 +1,6 @@
 {
   "name": "@dc7290/next-router-prefetch",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "This provides a custom hook that contains 'next/router'.",
   "homepage": "https://github.com/dc7290/next-router-prefetch#next-router-prefetch",
   "repository": {
