@@ -28,7 +28,7 @@ yarn add @dc7290/next-router-prefetch # npm i @dc7290/next-router-prefetch
 ## Usage
 
 ```js
-useRouter(url, observe, nextRouterOptions);
+useRouterPrefetch(url, observe, nextRouterOptions);
 ```
 
 Use the first argument to enter the link destination.<br>

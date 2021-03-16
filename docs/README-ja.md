@@ -26,7 +26,7 @@ yarn add @dc7290/next-router-prefetch # npm i @dc7290/next-router-prefetch
 ## Usage
 
 ```javascript
-useRouter(url, observe, nextRouterOptions);
+useRouterPrefetch(url, observe, nextRouterOptions);
 ```
 
 第 1 引数にリンク先を入力して使用します。<br>
