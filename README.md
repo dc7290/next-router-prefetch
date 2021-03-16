@@ -43,7 +43,7 @@ Set this to the ref of the element you want prefetched when it enters the viewpo
 #### Example of use in JavaScript
 
 ```js
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useRouterPrefetch } from "@dc7290/next-router-prefetch";
 
 const FooComponent = () => {
@@ -79,12 +79,15 @@ const BarComponent = () => {
 
 #### Example of use in TypeScript
 
-```js
+```ts
+import React, { useEffect } from "react";
 import { useRouterPrefetch } from "@dc7290/next-router-prefetch";
 
 const FooComponent: React.VFC = () => {
-  const { handleRouterPush, prefetchTarget } =
-    useRouterPrefetch < HTMLDivElement > "/foo";
+  const {
+    handleRouterPush,
+    prefetchTarget,
+  } = useRouterPrefetch<HTMLDivElement>("/foo");
   // You can also give it to them in the following ways
   // const { handleRouterPush, prefetchTarget } = useRouterPrefetch<HTMLDivElement>({
   //   pathname: "/posts/[postId]";

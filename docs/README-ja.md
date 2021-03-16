@@ -41,7 +41,7 @@ useRouter(url, observe, nextRouterOptions);
 #### JavaScript での使用例
 
 ```javascript
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useRouterPrefetch } from "@dc7290/next-router-prefetch";
 
 const FooComponent = () => {
@@ -78,6 +78,7 @@ const BarComponent = () => {
 #### TypeScript での使用例
 
 ```typescript
+import React, { useEffect } from "react";
 import { useRouterPrefetch } from "@dc7290/next-router-prefetch";
 
 const FooComponent: React.VFC = () => {
