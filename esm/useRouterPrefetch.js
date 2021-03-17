@@ -1,13 +1,13 @@
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import { prepareUrlAs } from "./lib/prepareUrlAs";
 export function useRouterPrefetch(url, observe, nextRouterOptions) {
     if (observe === void 0) { observe = true; }
     var router = useRouter();
-    var handleRouterPush = function (event) {
+    var handleRouterPush = useCallback(function (event) {
         event === null || event === void 0 ? void 0 : event.preventDefault();
         router.push(url, nextRouterOptions === null || nextRouterOptions === void 0 ? void 0 : nextRouterOptions.as, nextRouterOptions === null || nextRouterOptions === void 0 ? void 0 : nextRouterOptions.options);
-    };
+    }, []);
     var prefetchTarget = useRef(null);
     var prefetchLink = function () {
         if (typeof url === "string") {
