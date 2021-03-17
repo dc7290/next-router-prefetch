@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import { prepareUrlAs } from "./lib/prepareUrlAs";
 
@@ -46,10 +46,13 @@ export function useRouterPrefetch<T extends Element>(
 ) {
   const router = useRouter();
 
-  const handleRouterPush = (event?: SyntheticEvent<Element, Event>) => {
-    event?.preventDefault();
-    router.push(url, nextRouterOptions?.as, nextRouterOptions?.options);
-  };
+  const handleRouterPush = useCallback(
+    (event?: SyntheticEvent<Element, Event>) => {
+      event?.preventDefault();
+      router.push(url, nextRouterOptions?.as, nextRouterOptions?.options);
+    },
+    []
+  );
 
   const prefetchTarget = useRef<T | null>(null);
   const prefetchLink = () => {
