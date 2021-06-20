@@ -36,7 +36,7 @@ export function useRouterPrefetch(
   handleRouterPush: (event?: SyntheticEvent<Element, Event>) => void;
 };
 
-export function useRouterPrefetch<T extends Element>(
+export function useRouterPrefetch<T extends HTMLElement>(
   url: Url,
   observe: boolean = true,
   nextRouterPrefetchOptions?: NextRouterPrefetchOptions
