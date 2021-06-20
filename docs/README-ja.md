@@ -82,10 +82,8 @@ import React, { useEffect } from "react";
 import { useRouterPrefetch } from "@dc7290/next-router-prefetch";
 
 const FooComponent: React.VFC = () => {
-  const {
-    handleRouterPush,
-    prefetchTarget,
-  } = useRouterPrefetch<HTMLDivElement>("/foo");
+  const { handleRouterPush, prefetchTarget } =
+    useRouterPrefetch<HTMLDivElement>("/foo");
   // 以下のような渡し方も可能
   // const { handleRouterPush, prefetchTarget } = useRouterPrefetch<HTMLDivElement>({
   //   pathname: "/posts/[postId]";
@@ -133,10 +131,11 @@ const BarComponent: React.VFC = () => {
 
 router.push のデフォルトの optins と同様です。
 
-| key     | value               | description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-| ------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| as      | string or UrlObject | ブラウザに表示される URL のオプションのデコレーターです。Next.js 9.5.3 より前のバージョンでは、このデコレーターはダイナミックルートに使用されていましたが、その仕組みについては[以前のドキュメント](https://nextjs.org/docs/tag/v9.5.2/api-reference/next/link#dynamic-routes)をご覧ください。                                                                                                                                                                                                    |
-| options | object              | 以下の設定オプションを持つオプションオブジェクトです。<br>scroll: ナビゲーション後にページの先頭にスクロールするかどうか。デフォルトは true です。<br>shallow: getStaticProps、getServerSideProps、getInitialProps を再実行することなく、現在のページのパスを更新します。デフォルトは false です。<br>locale: アクティブなロケールは自動的に前置されます。 locale は異なるロケールを指定することができます。false の場合、href はロケールを含めなければならず、デフォルトの動作は無効になります。 |
+| key                         | value                    | description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| --------------------------- | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| intersectionObserverOptions | IntersectionObserverInit | observe を true にした時の IntersectionObserver に渡すオプションを指定します。[参考(MDN)](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/IntersectionObserver#parameters)                                                                                                                                                                                                                                                                                                  |
+| as                          | string or UrlObject      | ブラウザに表示される URL のオプションのデコレーターです。Next.js 9.5.3 より前のバージョンでは、このデコレーターはダイナミックルートに使用されていましたが、その仕組みについては[以前のドキュメント](https://nextjs.org/docs/tag/v9.5.2/api-reference/next/link#dynamic-routes)をご覧ください。                                                                                                                                                                                                    |
+| options                     | object                   | 以下の設定オプションを持つオプションオブジェクトです。<br>scroll: ナビゲーション後にページの先頭にスクロールするかどうか。デフォルトは true です。<br>shallow: getStaticProps、getServerSideProps、getInitialProps を再実行することなく、現在のページのパスを更新します。デフォルトは false です。<br>locale: アクティブなロケールは自動的に前置されます。 locale は異なるロケールを指定することができます。false の場合、href はロケールを含めなければならず、デフォルトの動作は無効になります。 |
 
 ## Tips
 

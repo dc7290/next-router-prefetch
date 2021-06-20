@@ -6,7 +6,7 @@
     "jsx": "react",
     "declaration": true,
     "pretty": true,
-    "rootDir": "src",
+    "rootDir": "./src",
     "sourceMap": false,
     "strict": true,
     "esModuleInterop": true,
@@ -19,7 +19,8 @@
     "lib": ["dom", "esnext"],
     "importHelpers": true,
     "downlevelIteration": true,
-    "types": []
+    "types": ["jest"]
   },
-  "exclude": ["node_modules", "esm", "lib", "test"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "esm", "lib", "**/*.test.ts"]
 }
