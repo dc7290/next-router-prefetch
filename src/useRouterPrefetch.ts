@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
-import { prepareUrlAs } from "./lib/prepareUrlAs";
+import { prepareUrlAs } from "./utils/prepareUrlAs";
 
 import type { MutableRefObject, SyntheticEvent } from "react";
 import type { UrlObject } from "url";
