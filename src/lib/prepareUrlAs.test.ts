@@ -9,22 +9,24 @@ describe("Whether `prepateUrlAs` is handling the URL correctly.", () => {
   const { result } = renderHook(() => useRouter());
 
   test("supports the `string`", () => {
-    const { url } = prepareUrlAs(result.current, "/foo");
+    const { url, as } = prepareUrlAs(result.current, "/foo");
     expect(url).toBe("/foo");
+    expect(as).toBe("/foo");
   });
 
   test("supports the singular `UrlObject`", () => {
-    const { url } = prepareUrlAs(result.current, {
+    const { url, as } = prepareUrlAs(result.current, {
       pathname: "/foo/[id]",
       query: {
         id: "bar",
       },
     });
     expect(url).toBe("/foo/[id]?id=bar");
+    expect(as).toBe("/foo/bar");
   });
 
   test("supports the multiple `UrlObject`", () => {
-    const { url } = prepareUrlAs(result.current, {
+    const { url, as } = prepareUrlAs(result.current, {
       pathname: "/foo/[id]/[number]",
       query: {
         id: "bar",
@@ -32,5 +34,6 @@ describe("Whether `prepateUrlAs` is handling the URL correctly.", () => {
       },
     });
     expect(url).toBe("/foo/[id]/[number]?id=bar&number=1");
+    expect(as).toBe("/foo/bar/1");
   });
 });
