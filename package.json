@@ -29,7 +29,7 @@
   "scripts": {
     "build:cjs": "tsc",
     "build:es": "tsc -m esNext --outDir esm",
-    "build:clean": "rmraf ./esm && rmraf ./lib",
+    "build:clean": "rm -rf ./esm && rm -rf ./lib",
     "build:watch": "tsc --watch",
     "build": "yarn build:clean && yarn build:cjs && yarn build:es",
     "test": "jest",
@@ -47,7 +47,6 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-test-renderer": "^17.0.2",
-    "rmraf": "^1.0.3",
     "ts-jest": "^27.0.3",
     "typescript": "^4.3.4"
   },

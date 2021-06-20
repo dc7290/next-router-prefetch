@@ -3,5 +3,5 @@ node_modules
 
 .next/
 
-./lib/
-./esm/
+lib/
+esm/
