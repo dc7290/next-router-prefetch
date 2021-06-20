@@ -22,7 +22,7 @@ The solution to this is `next-router-prefetch`!
 ## Installation
 
 ```bash
-yarn add @dc7290/next-router-prefetch # npm i @dc7290/next-router-prefetch
+yarn add @dc7290/next-router-prefetch@2.2.2 # npm i @dc7290/next-router-prefetch@2.2.2
 ```
 
 ## Usage
