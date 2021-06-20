@@ -13,43 +13,44 @@ type TransitionOptions = {
   scroll?: boolean;
 };
 
-type NextRouterOptions = {
+type NextRouterPrefetchOptions = {
   as?: string | UrlObject;
   options?: TransitionOptions;
+  intersectionObserverOptions?: IntersectionObserverInit;
 };
 
-export function useRouterPrefetch<T extends Element>(
+export function useRouterPrefetch<T extends HTMLElement>(
   url: Url,
   observe?: true,
-  nextRouterOptions?: NextRouterOptions
+  nextRouterPrefetchOptions?: NextRouterPrefetchOptions
 ): {
-  handleRouterPush: (
-    event?: SyntheticEvent<Element, Event> | undefined
-  ) => void;
+  handleRouterPush: (event?: SyntheticEvent<T, Event>) => void;
   prefetchTarget: MutableRefObject<T | null>;
 };
 
 export function useRouterPrefetch(
   url: Url,
   observe?: false,
-  nextRouterOptions?: NextRouterOptions
+  nextRouterPrefetchOptions?: NextRouterPrefetchOptions
 ): {
-  handleRouterPush: (
-    event?: SyntheticEvent<Element, Event> | undefined
-  ) => void;
+  handleRouterPush: (event?: SyntheticEvent<Element, Event>) => void;
 };
 
 export function useRouterPrefetch<T extends Element>(
   url: Url,
   observe: boolean = true,
-  nextRouterOptions?: NextRouterOptions
+  nextRouterPrefetchOptions?: NextRouterPrefetchOptions
 ) {
   const router = useRouter();
 
   const handleRouterPush = useCallback(
     (event?: SyntheticEvent<Element, Event>) => {
       event?.preventDefault();
-      router.push(url, nextRouterOptions?.as, nextRouterOptions?.options);
+      router.push(
+        url,
+        nextRouterPrefetchOptions?.as,
+        nextRouterPrefetchOptions?.options
+      );
     },
     []
   );
@@ -64,7 +65,7 @@ export function useRouterPrefetch<T extends Element>(
       const { url: prefetchUrl, as: prefetchAs } = prepareUrlAs(
         router,
         url,
-        nextRouterOptions?.as
+        nextRouterPrefetchOptions?.as
       );
       return {
         prefetchUrl,
@@ -83,7 +84,7 @@ export function useRouterPrefetch<T extends Element>(
             prefetch();
           }
         });
-      });
+      }, nextRouterPrefetchOptions?.intersectionObserverOptions);
       if (prefetchTarget.current) {
         observer.observe(prefetchTarget.current);
       }
