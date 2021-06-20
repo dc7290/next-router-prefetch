@@ -14,7 +14,8 @@ function stripOrigin(url: string) {
 }
 
 export function prepareUrlAs(router: NextRouter, url: Url, as?: Url) {
-  let [resolvedHref, resolvedAs] = resolveHref(router.pathname, url, true);
+  let [resolvedHref, resolvedAs] = resolveHref(router, url, true);
+  console.log(resolveHref(router, url, true));
   const origin = getLocationOrigin();
   const hrefHadOrigin = resolvedHref.startsWith(origin);
   const asHadOrigin = resolvedAs && resolvedAs.startsWith(origin);
@@ -24,7 +25,7 @@ export function prepareUrlAs(router: NextRouter, url: Url, as?: Url) {
 
   const preparedUrl = hrefHadOrigin ? resolvedHref : addBasePath(resolvedHref);
   const preparedAs = as
-    ? stripOrigin(resolveHref(router.pathname, as))
+    ? stripOrigin(resolveHref(router, as))
     : resolvedAs || resolvedHref;
 
   return {
