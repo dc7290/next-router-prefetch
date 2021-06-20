@@ -2,8 +2,8 @@
 
 [![npm version](https://img.shields.io/npm/v/@dc7290/next-router-prefetch)](https://www.npmjs.com/package/@dc7290/next-router-prefetch) [![license](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/cyrilwanner/@dc7290/next-router-prefetch/blob/master/LICENSE) [![downloads](https://img.shields.io/npm/dt/@dc7290/next-router-prefetch)](https://www.npmjs.com/package/@dc7290/next-router-prefetch)
 
-✋ こちらのバージョンでは Next.js 11 を使用しています。
-それ以前のバージョンの場合は、[こちら](https://www.npmjs.com/package/@dc7290/next-router-prefetch/v/2.2.2)をご利用ください。
+✋ This version uses Next.js 11.
+For earlier versions, please use this [one](https://www.npmjs.com/package/@dc7290/next-router-prefetch/v/2.2.2).
 
 ---
 
