@@ -1,0 +1,1 @@
+export { useRouterPrefetch } from "./useRouterPrefetch";
