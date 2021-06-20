@@ -1,5 +1,12 @@
 # next-router-prefetch
 
+[![npm version](https://img.shields.io/npm/v/@dc7290/next-router-prefetch)](https://www.npmjs.com/package/@dc7290/next-router-prefetch) [![license](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/cyrilwanner/@dc7290/next-router-prefetch/blob/master/LICENSE) [![downloads](https://img.shields.io/npm/dt/@dc7290/next-router-prefetch)](https://www.npmjs.com/package/@dc7290/next-router-prefetch)
+
+✋ こちらのバージョンでは Next.js 11 を使用しています。
+それ以前のバージョンの場合は、[こちら](https://www.npmjs.com/package/@dc7290/next-router-prefetch/v/2.2.1)をご利用ください。
+
+---
+
 `next-router-prefetch` is a custom hook that wraps useRouter.<br>
 Apply prefetch to links that do not use the Link component.
 
