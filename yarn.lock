@@ -2902,7 +2902,7 @@ next-router-mock@0.1.3:
   resolved "https://registry.yarnpkg.com/next-router-mock/-/next-router-mock-0.1.3.tgz#5d9974f38881e8ae4bfa807a8fd71423ae27c5f9"
   integrity sha512-C0CmZPUlV3+LjrEXgkCIcfBI6tbZVHNWfEoUz2QD9UDa23NkBokEsugWJHw6uFb8VEMqjpbiyJ2qmTkMFfQw+Q==
 
-next@^11.0.0:
+next@11.0.0:
   version "11.0.0"
   resolved "https://registry.yarnpkg.com/next/-/next-11.0.0.tgz#866b833f192f5a94ddb3267d5cc0f4b0ce405ac7"
   integrity sha512-1OA0ccCTwVtdLats/1v7ReiBVx+Akya0UVhHo9IBr8ZkpDI3/SGNcaruJBp5agy8ROF97VDKkZamoUXxRB9NUA==
