@@ -2875,10 +2875,10 @@ natural-compare@^1.4.0:
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=
 
-next-router-mock@0.1.4:
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/next-router-mock/-/next-router-mock-0.1.4.tgz#65ccb177d6c2dc201b9732754fc2248827a24ccf"
-  integrity sha512-oMYbd72iIm0Vj4WFQVJJLVeLQ7PiT9jJZiVIpBigiW/E9zZpMTAoHNu08ZSU5OX0vZubYy3ZhJpIfgNqAPsyZA==
+next-router-mock@0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/next-router-mock/-/next-router-mock-0.2.2.tgz#26fba117d38766a97832ddd19f0a12ed60d5ecef"
+  integrity sha512-Qjs4noCrSFXpAP/XsazzXMR2jnVv1lEa6VTOwgef8J7+tQtcicYt4GYmUATOKVa1btZUBgjpEAwVLADYL+2Bow==
 
 next@11.0.1:
   version "11.0.1"
