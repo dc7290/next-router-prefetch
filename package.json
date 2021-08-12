@@ -1,6 +1,6 @@
 {
   "name": "@dc7290/next-router-prefetch",
-  "version": "3.0.2",
+  "version": "4.0.0",
   "description": "This provides a custom hook that contains 'next/router'.",
   "homepage": "https://github.com/dc7290/next-router-prefetch#next-router-prefetch",
   "repository": {
@@ -54,8 +54,11 @@
     "tslib": "2.3.1"
   },
   "peerDependencies": {
-    "next": "^11.0.0",
+    "next": "^11.1.0",
     "react": "^16.8.0  || ^17.0.0",
     "react-dom": "^16.8.0  || ^17.0.0"
+  },
+  "resolutions": {
+    "@types/react": "17.0.17"
   }
 }

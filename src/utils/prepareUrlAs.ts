@@ -1,9 +1,5 @@
-import {
-  addBasePath,
-  resolveHref,
-} from "next/dist/next-server/lib/router/router";
-import { getLocationOrigin } from "next/dist/next-server/lib/utils";
-
+import { addBasePath, resolveHref } from "next/dist/shared/lib/router/router";
+import { getLocationOrigin } from "next/dist/shared/lib/utils";
 import type { NextRouter } from "next/router";
 import type { Url } from "../useRouterPrefetch";
 
