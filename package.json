@@ -42,7 +42,7 @@
     "@types/react": "17.0.17",
     "@types/react-dom": "17.0.9",
     "jest": "27.0.6",
-    "next": "11.0.1",
+    "next": "11.1.0",
     "next-router-mock": "0.2.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
