@@ -39,7 +39,7 @@
     "@testing-library/react-hooks": "7.0.1",
     "@types/jest": "27.0.0",
     "@types/node": "14.17.5",
-    "@types/react": "17.0.17",
+    "@types/react": "17.0.19",
     "@types/react-dom": "17.0.9",
     "jest": "27.0.6",
     "next": "11.1.0",
@@ -59,6 +59,6 @@
     "react-dom": "^16.8.0  || ^17.0.0"
   },
   "resolutions": {
-    "@types/react": "17.0.17"
+    "@types/react": "17.0.19"
   }
 }
